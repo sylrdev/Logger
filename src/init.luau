@@ -60,12 +60,13 @@ function Logger.new(options: LoggerOptions): Logger
 
 	local self = setmetatable({}, Logger)
 
-	-- TODO fix boolean props
-	self._enabled = options.Enabled or DEFAULT_LOGGER_OPTIONS.Enabled
-	self._prefix = options.Prefix or DEFAULT_LOGGER_OPTIONS.Prefix
-	self._source = options.Source or DEFAULT_LOGGER_OPTIONS.Source
-	self._type = options.Type or DEFAULT_LOGGER_OPTIONS.Type
-	self._verbosityLevel = options.VerbosityLevel or DEFAULT_LOGGER_OPTIONS.VerbosityLevel
+	self._enabled = if options.Enabled ~= nil then options.Enabled else DEFAULT_LOGGER_OPTIONS.Enabled
+	self._prefix = if options.Prefix ~= nil then options.Prefix else DEFAULT_LOGGER_OPTIONS.Prefix
+	self._source = if options.Source ~= nil then options.Source else DEFAULT_LOGGER_OPTIONS.Source
+	self._type = if options.Type ~= nil then options.Type else DEFAULT_LOGGER_OPTIONS.Type
+	self._verbosityLevel = if options.VerbosityLevel ~= nil
+		then options.VerbosityLevel
+		else DEFAULT_LOGGER_OPTIONS.VerbosityLevel
 
 	return self
 end
