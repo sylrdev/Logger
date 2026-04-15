@@ -29,10 +29,24 @@ local DEFAULT_LOGGER_OPTIONS: LoggerOptions = {
 	end)(),
 }
 
+--[[
+	@class Logger
+]]
 local Logger = {}
 Logger.__index = Logger
 
-function Logger.new(options: LoggerOptions)
+--[[
+	Constructor.
+
+	@param options LoggerOptions --- instanciation options to customize behavior
+	@param options.Enabled boolean? --- if false then no logging will be printed to the console
+	@param options.Prefix boolean? --- if true, will include the source name in the log
+	@param options.Source string --- source to log from, eg: "InventoryService"
+	@param options.Type boolean? --- if true, will include the logging type in the log
+	@param options.VerbosityLevel number? --- lowest logging level to print to the console eg: if the level is 3 (WARN) and a level 1 (DEBUG) log is logged, nothing will get printed
+	@return Logger --- instanciated logger object
+]]
+function Logger.new(options: LoggerOptions): Logger
 	local loggerOptionInterface = T.interface {
 		Enabled = T.optional(T.boolean),
 		Prefix = T.optional(T.boolean),
@@ -56,6 +70,12 @@ function Logger.new(options: LoggerOptions)
 	return self
 end
 
+--[[
+	Logs a message to the console based on current properties.
+
+	@param level number --- level of the log
+	@param msg string --- message to output
+]]
 function Logger._log(self: Logger, level: number, msg: string)
 	assert(T.intersection(T.integer, T.numberConstrained(VerbosityLevel.DEBUG, VerbosityLevel.ERROR)))
 	assert(T.string(msg))
@@ -89,24 +109,44 @@ function Logger._log(self: Logger, level: number, msg: string)
 	log(str)
 end
 
+--[[
+	Logs a DEBUG message.
+
+	@param msg string --- message to output
+]]
 function Logger.debug(self: Logger, msg: string)
 	assert(T.string(msg))
 
 	self:_log(VerbosityLevel.DEBUG, msg)
 end
 
+--[[
+	Logs an INFO message.
+
+	@param msg string --- message to output
+]]
 function Logger.info(self: Logger, msg: string)
 	assert(T.string(msg))
 
 	self:_log(VerbosityLevel.INFO, msg)
 end
 
+--[[
+	Logs a WARN message.
+
+	@param msg string --- message to output
+]]
 function Logger.warn(self: Logger, msg: string)
 	assert(T.string(msg))
 
 	self:_log(VerbosityLevel.WARN, msg)
 end
 
+--[[
+	Logs an ERROR message.
+
+	@param msg string --- message to output
+]]
 function Logger.error(self: Logger, msg: string)
 	assert(T.string(msg))
 
