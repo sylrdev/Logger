@@ -4,11 +4,9 @@ local Logger = require(ReplicatedStorage.Logger)
 
 local logger = Logger.new {
 	Source = script.Name,
-	Prefix = false,
-	Type = false,
-	Enabled = false,
-	VerbosityLevel = 3,
 }
+
+print(logger)
 
 logger:debug("Hello world!")
 logger:info("Hello world!")

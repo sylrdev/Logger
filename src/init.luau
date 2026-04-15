@@ -78,6 +78,13 @@ function Logger.new(options: LoggerOptions): Logger
 end
 
 --[[
+	tostring metamethod.
+]]
+function Logger.__tostring(self: Logger)
+	return string.format("Logger<%s>", self._source)
+end
+
+--[[
 	Logs a message to the console based on current properties.
 
 	@param level number --- level of the log
