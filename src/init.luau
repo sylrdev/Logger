@@ -33,8 +33,20 @@ local Logger = {}
 Logger.__index = Logger
 
 function Logger.new(options: LoggerOptions)
+	local loggerOptionInterface = T.interface {
+		Enabled = T.optional(T.boolean),
+		Prefix = T.optional(T.boolean),
+		Source = T.string,
+		Type = T.optional(T.boolean),
+		VerbosityLevel = T.optional(
+			T.intersection(T.integer, T.numberConstrained(VerbosityLevel.DEBUG, VerbosityLevel.ERROR))
+		),
+	}
+	assert(loggerOptionInterface(options))
+
 	local self = setmetatable({}, Logger)
 
+	-- TODO fix boolean props
 	self._enabled = options.Enabled or DEFAULT_LOGGER_OPTIONS.Enabled
 	self._prefix = options.Prefix or DEFAULT_LOGGER_OPTIONS.Prefix
 	self._source = options.Source or DEFAULT_LOGGER_OPTIONS.Source
@@ -48,6 +60,10 @@ function Logger._log(self: Logger, level: number, msg: string)
 	assert(T.intersection(T.integer, T.numberConstrained(VerbosityLevel.DEBUG, VerbosityLevel.ERROR)))
 	assert(T.string(msg))
 
+	if (self._enabled == false) or (level < self._verbosityLevel) then
+		return
+	end
+
 	local log
 
 	if (level == VerbosityLevel.DEBUG) or (level == VerbosityLevel.INFO) then
@@ -60,10 +76,15 @@ function Logger._log(self: Logger, level: number, msg: string)
 
 	local str = ""
 
-	if self._prefix == true then
+	if self._type == true then
 		str ..= string.format("[%s] ", VerbosityLevel[level])
 	end
-	str ..= string.format("[%s] %s", self._source, msg)
+
+	if self._prefix == true then
+		str ..= string.format("[%s] ", self._source)
+	end
+
+	str ..= msg
 
 	log(str)
 end
