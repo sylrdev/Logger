@@ -31,6 +31,12 @@ local DEFAULT_LOGGER_OPTIONS: LoggerOptions = {
 
 --[[
 	@class Logger
+
+	@prop _enabled boolean --- if false then no logging will be printed to the console
+	@prop _prefix boolean --- if true, will include the source name in the log
+	@prop _source string --- source to log from, eg: "InventoryService"
+	@prop _type boolean --- if true, will include the logging type in the log
+	@prop _verbosityLevel number --- lowest logging level to print to the console eg: if the level is 3 (WARN) and a level 1 (DEBUG) log is logged, nothing will get printed
 ]]
 local Logger = {}
 Logger.__index = Logger
