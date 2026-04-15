@@ -40,6 +40,27 @@ function Logger.new(options: LoggerOptions)
 	return self
 end
 
+function Logger._log(self: Logger, level: number, msg: string)
+	local log
+
+	if (level == VerbosityLevel.DEBUG) or (level == VerbosityLevel.INFO) then
+		log = print
+	elseif level == VerbosityLevel.WARN then
+		log = warn
+	else
+		log = error
+	end
+
+	local str = ""
+
+	if self._prefix == true then
+		str ..= string.format("[%s]", VerbosityLevel[level])
+	end
+	str ..= string.format("[%s] %s", self._source, msg)
+
+	log(str)
+end
+
 type LoggerOptions = {
 	Enabled: boolean?,
 	Prefix: boolean?,
