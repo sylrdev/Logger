@@ -61,6 +61,22 @@ function Logger._log(self: Logger, level: number, msg: string)
 	log(str)
 end
 
+function Logger.debug(self: Logger, msg: string)
+	self:_log(VerbosityLevel.DEBUG, msg)
+end
+
+function Logger.info(self: Logger, msg: string)
+	self:_log(VerbosityLevel.INFO, msg)
+end
+
+function Logger.warn(self: Logger, msg: string)
+	self:_log(VerbosityLevel.WARN, msg)
+end
+
+function Logger.error(self: Logger, msg: string)
+	self:_log(VerbosityLevel.ERROR, msg)
+end
+
 type LoggerOptions = {
 	Enabled: boolean?,
 	Prefix: boolean?,
