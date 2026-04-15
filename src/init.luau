@@ -54,7 +54,7 @@ function Logger._log(self: Logger, level: number, msg: string)
 	local str = ""
 
 	if self._prefix == true then
-		str ..= string.format("[%s]", VerbosityLevel[level])
+		str ..= string.format("[%s] ", VerbosityLevel[level])
 	end
 	str ..= string.format("[%s] %s", self._source, msg)
 

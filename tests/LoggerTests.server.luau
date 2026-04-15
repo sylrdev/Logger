@@ -1,0 +1,12 @@
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local Logger = require(ReplicatedStorage.Logger)
+
+local logger = Logger.new {
+	Source = script.Name,
+}
+
+logger:debug("Hello world!")
+logger:info("Hello world!")
+logger:warn("Hello world!")
+logger:error("Hello world!")
