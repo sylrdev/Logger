@@ -1,4 +1,8 @@
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
 local RunService = game:GetService("RunService")
+
+local T = require(ReplicatedStorage.Logger.Packages.T)
 
 local VerbosityLevel = {
 	DEBUG = 1,
@@ -41,6 +45,9 @@ function Logger.new(options: LoggerOptions)
 end
 
 function Logger._log(self: Logger, level: number, msg: string)
+	assert(T.intersection(T.integer, T.numberConstrained(VerbosityLevel.DEBUG, VerbosityLevel.ERROR)))
+	assert(T.string(msg))
+
 	local log
 
 	if (level == VerbosityLevel.DEBUG) or (level == VerbosityLevel.INFO) then
@@ -62,18 +69,26 @@ function Logger._log(self: Logger, level: number, msg: string)
 end
 
 function Logger.debug(self: Logger, msg: string)
+	assert(T.string(msg))
+
 	self:_log(VerbosityLevel.DEBUG, msg)
 end
 
 function Logger.info(self: Logger, msg: string)
+	assert(T.string(msg))
+
 	self:_log(VerbosityLevel.INFO, msg)
 end
 
 function Logger.warn(self: Logger, msg: string)
+	assert(T.string(msg))
+
 	self:_log(VerbosityLevel.WARN, msg)
 end
 
 function Logger.error(self: Logger, msg: string)
+	assert(T.string(msg))
+
 	self:_log(VerbosityLevel.ERROR, msg)
 end
 
