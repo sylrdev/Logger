@@ -87,6 +87,7 @@ end
 --[[
 	Logs a message to the console based on current properties.
 
+	@private
 	@param level number --- level of the log
 	@param msg string --- message to output
 ]]
