@@ -5,6 +5,7 @@ version = "0.1.0"
 license = "MIT"
 registry = "https://github.com/UpliftGames/wally-index"
 realm = "shared"
+repository = "https://github.com/sylrdev/Logger"
 exclude = ["**"]
 inclue = ["src", "src/*", "wally.lock", "wally.toml"]
 
