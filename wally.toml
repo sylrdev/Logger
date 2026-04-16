@@ -1,8 +1,12 @@
 [package]
 name = "sylr/logger"
+description = "Logger utility class."
 version = "0.1.0"
+license = "MIT"
 registry = "https://github.com/UpliftGames/wally-index"
 realm = "shared"
+exclude = ["**"]
+inclue = ["src", "src/*", "wally.lock", "wally.toml"]
 
 [dependencies]
 T = "osyrisrblx/t@3.1.1"
