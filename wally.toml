@@ -1,5 +1,5 @@
 [package]
-name = "sylr/logger"
+name = "sylrdev/logger"
 description = "Logger utility class."
 version = "0.1.0"
 license = "MIT"
