@@ -9,7 +9,7 @@ You can use Logger in your project with Wally.
 ```toml
 logger = "sylrdev/logger@version"
 ```
-[Package link](https://wally.run/package/sylrdev/logger?version=0.1.0)
+[Package link](https://wally.run/package/sylrdev/logger)
 
 ### TODO
 - Docs
