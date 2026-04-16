@@ -7,7 +7,7 @@ registry = "https://github.com/UpliftGames/wally-index"
 realm = "shared"
 repository = "https://github.com/sylrdev/Logger"
 exclude = ["**"]
-inclue = ["src", "src/*", "wally.lock", "wally.toml"]
+include = ["src", "src/*", "wally.lock", "wally.toml"]
 
 [dependencies]
 T = "osyrisrblx/t@3.1.1"
