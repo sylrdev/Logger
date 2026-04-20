@@ -2,7 +2,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local RunService = game:GetService("RunService")
 
-local T = require(ReplicatedStorage.Logger.Packages.T)
+local T = require(script.Parent.T)
 
 local VerbosityLevel = {
 	DEBUG = 1,
