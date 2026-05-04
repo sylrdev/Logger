@@ -46,7 +46,7 @@ Outputs an ERROR level message.
 
 You can use Logger in your project with Wally.
 ```toml
-logger = "sylrdev/logger@version"
+Logger = "sylrdev/logger@0.2.0"
 ```
 [Package link](https://wally.run/package/sylrdev/logger)
 
