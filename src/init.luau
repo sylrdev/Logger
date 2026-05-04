@@ -1,28 +1,24 @@
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-
 local RunService = game:GetService("RunService")
 
 local T = require(script.Parent.T)
 
 local VerbosityLevel = {
-	DEBUG = 1,
-	INFO = 2,
-	WARN = 3,
-	ERROR = 4,
-	[1] = "DEBUG",
-	[2] = "INFO",
-	[3] = "WARN",
-	[4] = "ERROR",
+	INFO = 1,
+	WARN = 2,
+	ERROR = 3,
+	[1] = "INFO",
+	[2] = "WARN",
+	[3] = "ERROR",
 }
 
 local DEFAULT_LOGGER_OPTIONS: LoggerOptions = {
 	Enabled = true,
 	Prefix = true,
 	Source = "SOURCE_NOT_PROVIDED",
-	Type = true,
+	Type = false,
 	VerbosityLevel = (function()
 		if RunService:IsStudio() == true then
-			return VerbosityLevel.DEBUG
+			return VerbosityLevel.INFO
 		else
 			return VerbosityLevel.WARN
 		end
@@ -40,6 +36,7 @@ local DEFAULT_LOGGER_OPTIONS: LoggerOptions = {
 ]]
 local Logger = {}
 Logger.__index = Logger
+Logger.VerbosityLevel = VerbosityLevel
 
 --[[
 	Constructor.
@@ -59,7 +56,7 @@ function Logger.new(options: LoggerOptions): Logger
 		Source = T.string,
 		Type = T.optional(T.boolean),
 		VerbosityLevel = T.optional(
-			T.intersection(T.integer, T.numberConstrained(VerbosityLevel.DEBUG, VerbosityLevel.ERROR))
+			T.intersection(T.integer, T.numberConstrained(VerbosityLevel.INFO, VerbosityLevel.ERROR))
 		),
 	}
 	assert(loggerOptionInterface(options))
@@ -92,7 +89,7 @@ end
 	@param msg string --- message to output
 ]]
 function Logger._log(self: Logger, level: number, msg: string)
-	assert(T.intersection(T.integer, T.numberConstrained(VerbosityLevel.DEBUG, VerbosityLevel.ERROR)))
+	assert(T.intersection(T.integer, T.numberConstrained(VerbosityLevel.INFO, VerbosityLevel.ERROR)))
 	assert(T.string(msg))
 
 	if (self._enabled == false) or (level < self._verbosityLevel) then
@@ -101,7 +98,7 @@ function Logger._log(self: Logger, level: number, msg: string)
 
 	local log
 
-	if (level == VerbosityLevel.DEBUG) or (level == VerbosityLevel.INFO) then
+	if level == VerbosityLevel.INFO then
 		log = print
 	elseif level == VerbosityLevel.WARN then
 		log = warn
@@ -122,17 +119,6 @@ function Logger._log(self: Logger, level: number, msg: string)
 	str ..= msg
 
 	log(str)
-end
-
---[[
-	Logs a DEBUG message.
-
-	@param msg string --- message to output
-]]
-function Logger.debug(self: Logger, msg: string)
-	assert(T.string(msg))
-
-	self:_log(VerbosityLevel.DEBUG, msg)
 end
 
 --[[

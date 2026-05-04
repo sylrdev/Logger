@@ -21,13 +21,6 @@ options.Type -- [boolean]? --- if true, will include the logging type in the log
 options.VerbosityLevel -- [number?] --- lowest logging level to print to the console eg: if the level is 3 (WARN) and a level 1 (DEBUG) log is logged, nothing will get printed
 ```
 
-### :debug()
-```lua
-logger:debug(msg)
-    -- msg [string] --- message to log
-```
-Outputs a DEBUG level message.
-
 ### :info()
 ```lua
 logger:info(msg)
